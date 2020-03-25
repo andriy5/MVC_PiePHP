@@ -1,13 +1,11 @@
+<pre>
 <?php
 
-define('BASE_URI', str_replace('\\', '/', substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT']))));
+define('BASE_URI', __DIR__  . DIRECTORY_SEPARATOR);
 
 require_once(implode(DIRECTORY_SEPARATOR, ['Core', 'autoload.php']));
 
-$app = new CoreCore();
+$app = new Core\Core();
 $app->run();
-// echo DIRECTORY_SEPARATOR;
-// echo __DIR__ . "<br>";
-// echo substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT'])) . "<br>";
-// echo $_SERVER['DOCUMENT_ROOT'] . "<br>";
-// echo str_replace('\\', '/', substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT'])));
+
+// echo BASE_URI . "<br>";
