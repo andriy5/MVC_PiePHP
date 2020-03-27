@@ -1,10 +1,15 @@
 <?php
 
-namespace Controller;
+// namespace Controller;
 
+// class UserController extends Controller{
 class UserController {
   public function addAction() {
-    echo "youpi";
+    echo "addAction appelé";
+  }
+
+  public function indexAction() {
+    echo "indexAction appelé";
   }
 }
 

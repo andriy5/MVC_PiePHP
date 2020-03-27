@@ -1,22 +1,36 @@
 <?php
 
 spl_autoload_register(function ($class) {
-  // echo str_replace('\\', '/', (BASE_URI . "$class.php")) . PHP_EOL;
-  echo BASE_URI . PHP_EOL;
-  echo $class . PHP_EOL;
-  // echo BASE_URI . $class . PHP_EOL;
-  // include str_replace('\\', '/', (BASE_URI . "$class.php"));
   $path = str_replace('\\', '/', (BASE_URI . "$class.php"));
-  // include str_replace('\\', '/', (BASE_URI . "$class.php"));
-  echo $path . PHP_EOL;
   if (!file_exists($path)){
-    // echo "n'existe ap'";
-    $path = str_replace('\\', '/', (BASE_URI . "src/Controller/$class.php"));
-    echo $path;
-    include $path;
+    $path = str_replace('\\', '/', (BASE_URI . "src/$class.php"));
+    if (file_exists($path)){
+      include $path;
+    }
   } else {
     include $path;
   }
+
+    // $array = [
+    //   BASE_URI,
+    //   'src/Controller/'
+    // ];
+    // // var_dump($array);
+    // for ($i=0; $i < count($array); $i++) { 
+    //   // $classPath = "{$array[$i]}{$class}.php";
+    //   $classPath =  str_replace('\\', '/', (BASE_URI . "{$array[$i]}{$class}.php"));
+    //   // echo $classPath . PHP_EOL;
+    //   if ( file_exists($classPath) ) {
+    //     include $classPath;
+    //   }
+    //   else {
+    //     $classPath =  str_replace('\\', '/', "{$array[$i]}{$class}.php");
+    //     // echo $classPath . PHP_EOL;
+    //     if ( file_exists($classPath) ) {
+    //       include $classPath;
+    //     }
+    //   }
+    // }
 });
 
 ?>
