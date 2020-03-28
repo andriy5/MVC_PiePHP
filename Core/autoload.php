@@ -1,36 +1,53 @@
 <?php
 
 spl_autoload_register(function ($class) {
-  $path = str_replace('\\', '/', (BASE_URI . "$class.php"));
-  if (!file_exists($path)){
-    $path = str_replace('\\', '/', (BASE_URI . "src/$class.php"));
+  // echo PHP_EOL . PHP_EOL . "autoload ==>" . $class . PHP_EOL;
+
+  // $path = str_replace('\\', '/', ("Core/$class.php"));
+  
+  // if (!file_exists($path)){
+
+  //   $path = str_replace('\\', '/', ("src/Controller/$class.php"));
+  //   // echo $path . PHP_EOL;
+    
+  //   if (!file_exists($path)){
+      
+  //     $path = str_replace('\\', '/', ("$class.php"));
+      
+  //     if (file_exists($path)){
+  //       echo $path . PHP_EOL;
+
+  //       include $path; 
+  //     } 
+  //   }
+  //   else {
+  //     echo $path . PHP_EOL;
+
+  //     include $path;
+  //   }
+  // } 
+  // else {
+  //   echo $path . PHP_EOL;
+
+  //   include $path;
+  // }
+
+  /* AVEC UN TABLEAU */
+
+  $array = [
+    "Core/",
+    "src/Controller/",
+    "",
+    "src/"
+  ];
+
+  for ($i=0; $i < count($array); $i++){
+    $path = str_replace('\\', '/', ("{$array[$i]}{$class}.php"));
     if (file_exists($path)){
+      // echo $path . PHP_EOL;
       include $path;
     }
-  } else {
-    include $path;
   }
-
-    // $array = [
-    //   BASE_URI,
-    //   'src/Controller/'
-    // ];
-    // // var_dump($array);
-    // for ($i=0; $i < count($array); $i++) { 
-    //   // $classPath = "{$array[$i]}{$class}.php";
-    //   $classPath =  str_replace('\\', '/', (BASE_URI . "{$array[$i]}{$class}.php"));
-    //   // echo $classPath . PHP_EOL;
-    //   if ( file_exists($classPath) ) {
-    //     include $classPath;
-    //   }
-    //   else {
-    //     $classPath =  str_replace('\\', '/', "{$array[$i]}{$class}.php");
-    //     // echo $classPath . PHP_EOL;
-    //     if ( file_exists($classPath) ) {
-    //       include $classPath;
-    //     }
-    //   }
-    // }
 });
 
 ?>

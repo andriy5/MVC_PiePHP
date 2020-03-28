@@ -1,9 +1,7 @@
 <?php
 
-// namespace Controller;
-
-// class UserController extends Controller{
-class UserController {
+class UserController extends Controller{
+// class UserController {
   public function addAction() {
     echo "addAction appelé";
   }
