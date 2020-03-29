@@ -16,7 +16,6 @@ spl_autoload_register(function ($class) {
       
   //     if (file_exists($path)){
   //       echo $path . PHP_EOL;
-
   //       include $path; 
   //     } 
   //   }
@@ -32,8 +31,9 @@ spl_autoload_register(function ($class) {
   //   include $path;
   // }
 
-  /* AVEC UN TABLEAU */
 
+
+  /* AVEC UN TABLEAU */
   $array = [
     "Core/",
     "src/Controller/",

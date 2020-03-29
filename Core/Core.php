@@ -62,6 +62,9 @@ class Core
         $newcontroller = new $controller();
         if (method_exists($newcontroller, $action)){
           $newcontroller->$action();
+
+          // $view = "login";
+          // $newcontroller->render($view);
         }
         else {
           echo "404";
@@ -71,7 +74,6 @@ class Core
         echo "404";
       }
     }
-    
 
   }
 }
