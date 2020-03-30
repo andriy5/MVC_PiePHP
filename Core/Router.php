@@ -21,4 +21,4 @@ class Router
     return self::$routes[$url];
   }
 }
-?>
+

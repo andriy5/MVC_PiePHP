@@ -2,9 +2,7 @@
 
 class AppController extends Controller{
   public function indexAction() {
-    echo "** indexAction appelé **\n";
+    echo "** indexAction appelé via AppController **\n";
   }
 }
 
-
-?>

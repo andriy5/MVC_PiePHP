@@ -1,11 +1,13 @@
 <?php
 
 namespace Core;
+
 use Router;
 
 class Core
 {
-  public function __construct() {
+  public function __construct()
+  {
     require_once("src/routes.php");
   }
 
@@ -21,7 +23,7 @@ class Core
     $path = implode("/", $path);
     // var_dump($path);
 
-    
+
     // //STATIQUE
     if (($route = Router::get($path)) != null) {
       // echo "RENTRE DANS LE STATIQUE";
@@ -32,48 +34,41 @@ class Core
 
       $newcontroller = new $controller();
       $newcontroller->$action();
-      
-    }
-    else {
+    } else {
 
       // DYNAMIQUE
-      
+
       $arr = explode('/', $_SERVER["REDIRECT_URL"]);
       // var_dump($arr);
       if (!empty($arr[2])) {
         $controller = ucfirst($arr[2]) . "Controller";
-      }
-      else {
+      } else {
         // echo "controller empty bro\n";
         $controller = "AppController";
       }
-      
+
       if (!empty($arr[3])) {
         $action = $arr[3] . "Action";
-      }
-      else {
+      } else {
         // echo "action empty bro\n";
         $action = "indexAction";
       }
 
       // echo $controller . "->" . $action . PHP_EOL;
 
-      if (class_exists($controller)){
+      if (class_exists($controller)) {
         $newcontroller = new $controller();
-        if (method_exists($newcontroller, $action)){
+        if (method_exists($newcontroller, $action)) {
           $newcontroller->$action();
 
           // $view = "login";
           // $newcontroller->render($view);
-        }
-        else {
+        } else {
           echo "404";
         }
-      }
-      else {
+      } else {
         echo "404";
       }
     }
-
   }
 }

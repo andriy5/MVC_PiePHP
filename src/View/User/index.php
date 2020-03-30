@@ -1,1 +1,1 @@
-<h1>-- PAGE INDEX dans src/View/User --</h1>
+<h1>Index</h1>

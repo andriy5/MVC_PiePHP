@@ -38,7 +38,8 @@ spl_autoload_register(function ($class) {
     "Core/",
     "src/Controller/",
     "",
-    "src/"
+    "src/",
+    "src/Model/"
   ];
 
   for ($i=0; $i < count($array); $i++){
@@ -50,4 +51,3 @@ spl_autoload_register(function ($class) {
   }
 });
 
-?>
