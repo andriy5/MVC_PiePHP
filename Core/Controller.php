@@ -4,6 +4,10 @@ class Controller
 {  
   public static $_render;
 
+  // public function __construct(){
+  //   $request = new Request();
+  // }
+
   protected function render($view, $scope = []) {
 
     extract($scope);

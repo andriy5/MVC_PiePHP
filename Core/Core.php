@@ -21,7 +21,6 @@ class Core
     array_shift($path);
     array_shift($path);
     $path = implode("/", $path);
-    // var_dump($path);
 
 
     // //STATIQUE
