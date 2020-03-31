@@ -24,11 +24,17 @@ class UserController extends Controller
     // $obj->email = $_POST["email"];
     // $obj->password = $_POST["password"];
 
-    // Mettre a jour les attr. du model
+    // Mettre a jour les attr. du modelf3
     // $obj->email = $postemail;
     // $obj->password = $postpassword;
 
     // Appellez méthode save()
-    $obj->save();
+    // $obj->save();
+    // $obj->create(array($_POST["email"], $_POST["password"]));
+    // $obj->read(48);
+    // $obj->update(48, "testupdate", "mdp");
+    // $obj->delete(47);
+    // $obj->read_all();
+
   }
 }
