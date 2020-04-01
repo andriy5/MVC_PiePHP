@@ -1,12 +1,18 @@
 <?php
 
+use Core\Request;
+
 class Controller
 {  
   public static $_render;
 
-  // public function __construct(){
-  //   $request = new Request();
-  // }
+  public function __construct(){
+    // require_once("Request.php");
+    var_dump($_POST);
+    $request = new Request();
+    $request->clean();
+    var_dump($_POST);
+  }
 
   protected function render($view, $scope = []) {
 
