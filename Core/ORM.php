@@ -14,11 +14,31 @@ Class ORM
     // Retourne un id
     $db = new Database();
     $sth = $db->connect();
-    $array = [$fields[0], $fields[1]];
-    // var_dump($array);
-    // echo '$table = ' . $table . "\n";
+    $array = [];
+    $champs = "(id, ";
+    $values = "(NULL, ";
+    var_dump($fields);
 
-    $q = $sth->prepare("INSERT INTO $table (id, email, pass) VALUES (NULL, ?, ?);");
+    foreach ($fields as $key => $value) {
+      $champs .= $key . ", ";
+      array_push($array, $value);
+      // echo $key . "\n";
+    }
+    $champs = substr($champs, 0, -2);
+    $champs .= ")";
+    // echo $champs . "\n";
+    
+    for ($i=1; $i<=count($fields); $i++) {
+      if ($i < count($fields)) {
+        $values .= "?, ";
+      }
+      else {
+        $values .= "?)";
+      }
+    }
+    // echo $values;
+
+    $q = $sth->prepare("INSERT INTO $table $champs VALUES $values;");
     $q->execute($array);
     $j = $sth->prepare("SELECT max(id) as result from $table;");
     // $j->execute($arraybis);
