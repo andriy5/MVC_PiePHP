@@ -8,10 +8,8 @@ class Controller
 
   public function __construct(){
     // require_once("Request.php");
-    var_dump($_POST);
     $request = new Request();
     $request->clean();
-    var_dump($_POST);
   }
 
   protected function render($view, $scope = []) {

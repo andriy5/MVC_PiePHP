@@ -13,7 +13,7 @@ class Core
 
   public function run()
   {
-    echo __CLASS__ . " [OK]" . PHP_EOL;
+    echo "✔ " . __CLASS__ . " [OK]" . PHP_EOL;
     // echo $_SERVER["REDIRECT_URL"] . PHP_EOL;
     // var_dump(Router::$routes);
 

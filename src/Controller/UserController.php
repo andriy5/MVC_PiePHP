@@ -1,5 +1,7 @@
 <?php
 
+// use Core\ORM;
+
 class UserController extends Controller
 {
   public function addAction()
@@ -30,7 +32,13 @@ class UserController extends Controller
 
     // Appellez méthode save()
     // $obj->save();
-    // $obj->create(array($_POST["email"], $_POST["password"]));
+    echo "✔ Rentre dans le registerAction\n";
+    // ORM::create('users', array($_POST["email"], $_POST["password"]));
+    // ORM::read('users', 65);
+    // ORM::update('users', 65, ["email" => "Balkany4", "password" => "bg4"]);
+    // ORM::update('users', 65, ["email" => "Balkany4", "password" => "bg4"]);
+    // ORM::delete('users', 64);
+    ORM::find('users', ["WHERE" => 65]);
     // $obj->read(48);
     // $obj->update(48, "testupdate", "mdp");
     // $obj->delete(47);
