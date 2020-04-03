@@ -8,8 +8,9 @@ class Controller
 
   public function __construct(){
     // require_once("Request.php");
-    $request = new Request();
-    $request->clean();
+    $this->request = new Request();
+    $this->request->clean();
+
   }
 
   protected function render($view, $scope = []) {

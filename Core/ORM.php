@@ -44,7 +44,6 @@ Class ORM
     // $j->execute($arraybis);
     $j->execute();
 
-
     $results = $j->fetch();
     // echo $results[0];
     return $results["result"];

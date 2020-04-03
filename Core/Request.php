@@ -16,4 +16,10 @@ class Request
       $_GET[$key] = $newvalue;
     }
   }
+
+  public function getQueryParams(){
+    echo "✔ getQueryParams()\n";
+    // var_dump($_REQUEST);
+    return $_REQUEST;
+  }
 }

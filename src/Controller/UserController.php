@@ -16,8 +16,9 @@ class UserController extends Controller
 
   public function registerAction()
   {
+    echo "✔ Rentre dans le registerAction\n";
     // Instance UserModel
-    $obj = new UserModel($_POST["email"], $_POST["password"]);
+    // $obj = new UserModel($_POST["email"], $_POST["password"]);
 
     // Récup. la requête POST
     // $postemail = $_POST["email"];
@@ -32,9 +33,8 @@ class UserController extends Controller
 
     // Appellez méthode save()
     // $obj->save();
-    echo "✔ Rentre dans le registerAction\n";
     // ORM::create('users', array("email" => $_POST["email"], "pass" => $_POST["password"]));
-    ORM::create('articles', array ('titre' => "un super titre", 'content' => 'et voici une super article de blog', 'author' => 'Rodrigue'));
+    // ORM::create('articles', array ('titre' => "un super titre", 'content' => 'et voici une super article de blog', 'author' => 'Rodrigue'));
     // ORM::read('users', 65);
     // ORM::update('users', 65, ["email" => "Balkany4", "password" => "bg4"]);
     // ORM::update('users', 65, ["email" => "Balkany4", "password" => "bg4"]);
@@ -45,5 +45,13 @@ class UserController extends Controller
     // $obj->delete(47);
     // $obj->read_all();
 
+    // var_dump($_REQUEST);
+    // $params = $this->request->getQueryParams();
+    $params = ["id" => 87];
+    $user = new UserModel($params);
+    if (!$user->id) {
+      $user->save();
+      self::$_render = " Votre compte a ete cree ." . PHP_EOL ;
+    }
   }
 }
