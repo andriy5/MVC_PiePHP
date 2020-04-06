@@ -46,8 +46,9 @@ class UserController extends Controller
     // $obj->read_all();
 
     // var_dump($_REQUEST);
-    // $params = $this->request->getQueryParams();
-    $params = ["id" => 87];
+    $params = $this->request->getQueryParams();
+    // var_dump($params);
+    // $params = ["id" => 108];
     $user = new UserModel($params);
     if (!$user->id) {
       $user->save();

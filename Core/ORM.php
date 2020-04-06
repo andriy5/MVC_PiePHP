@@ -17,9 +17,14 @@ Class ORM
     $array = [];
     $champs = "(id, ";
     $values = "(NULL, ";
-    var_dump($fields);
+
+    // echo "field :";
+    // var_dump($fields);
 
     foreach ($fields as $key => $value) {
+      if ($key == "password") {
+        $key = "pass";
+      }
       $champs .= $key . ", ";
       array_push($array, $value);
       // echo $key . "\n";
@@ -37,6 +42,7 @@ Class ORM
       }
     }
     // echo $values;
+    // var_dump($array);
 
     $q = $sth->prepare("INSERT INTO $table $champs VALUES $values;");
     $q->execute($array);
