@@ -55,13 +55,13 @@ Class ORM
     return $results["result"];
   }
 
-  public static function read ($table, $id =null) {
+  public static function read ($table, $id =null, $search ="id") {
     // Retourne un tab. assoc. de l ' enregistrement
     $db = new Database();
     $sth = $db->connect();
     $array = [$id];
 
-    $q = $sth->prepare("SELECT * FROM $table where id = ?");
+    $q = $sth->prepare("SELECT * FROM $table where $search = ?");
     $q->execute($array);
 
     $results = $q->fetch(PDO::FETCH_ASSOC);

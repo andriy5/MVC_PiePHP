@@ -2,13 +2,16 @@
 
 class Entity 
 {  
-  public function __construct($params) {
+  public function __construct($params =null) {
     if (array_key_exists("id", $params)) {
+      $table = get_class($this);
+      $table = str_replace("Model", "s", $table);
+      $table = strtolower($table);
       echo '✔ Key id exists on $params' . PHP_EOL;
-      $params = ORM::read('users', $params["id"]);
+      $params = ORM::read($table, $params["id"]);
       // var_dump($params);
     } else {
-      echo '✔ Key id doesn\'t exists on $params' . PHP_EOL;
+      echo '✖ Key id doesn\'t exists on $params' . PHP_EOL;
     }
 
     if ($params != false) {
@@ -16,7 +19,30 @@ class Entity
         $this->$key = $value;
       }
     }
-    // var_dump($this);
+
+
+    // Relation entres les modeles
+    $relations = $this->relations;
+    // var_dump($relations);
+    
+    foreach ($relations["has many"] as $hasmany_arrays) {
+      foreach ($hasmany_arrays as $fkey => $fvalue){
+        if ($fkey == "table") {
+          $value = $fvalue;
+        } 
+        elseif ($fkey == "key") {
+          $column = $fvalue;
+        }
+      }
+      // $this->$value = ORM::read($value, $this->id, $column);
+      $model = ucfirst($value);
+      $model = substr($model, 0, -1);
+      $model .= "Model";
+      echo '$value = ' . $value . PHP_EOL;
+      echo '$model = ' . $model . PHP_EOL;
+      $this->$value = new $model();
+    }
+    
   }
   
   public function save() {
@@ -122,7 +148,7 @@ class Entity
     $table = strtolower($table);
     // echo $table . PHP_EOL;
 
-    $query = ORM::create($table, $id);
+    $query = ORM::delete($table, $id);
     if ($query == true){
       echo "✔ Delete with success 👍";
     }

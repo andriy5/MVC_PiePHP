@@ -6,12 +6,12 @@ class UserController extends Controller
 {
   public function addAction()
   {
-    echo $this->render("register");
+    $this->render("register");
   }
 
   public function indexAction()
   {
-    echo $this->render("index");
+    $this->render("index");
   }
 
   public function registerAction()
@@ -27,7 +27,7 @@ class UserController extends Controller
     // $obj->email = $_POST["email"];
     // $obj->password = $_POST["password"];
 
-    // Mettre a jour les attr. du modelf3
+    // Mettre a jour les attr. du model
     // $obj->email = $postemail;
     // $obj->password = $postpassword;
 
@@ -45,14 +45,21 @@ class UserController extends Controller
     // $obj->delete(47);
     // $obj->read_all();
 
+
     // var_dump($_REQUEST);
     $params = $this->request->getQueryParams();
-    // var_dump($params);
     // $params = ["id" => 108];
     $user = new UserModel($params);
     if (!$user->id) {
       $user->save();
-      self::$_render = " Votre compte a ete cree ." . PHP_EOL ;
+      self::$_render = "Votre compte a ete cree. 👏" . PHP_EOL ;
     }
+    echo self::$_render;
+  }
+
+  public function detailsAction ()
+  {
+    $user = new UserModel(["id" => 1]);
+    var_dump($user);
   }
 }

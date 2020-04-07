@@ -2,15 +2,11 @@
 
 class UserModel extends Entity 
 {
-  // public function __construct($array)
-  // {
-  //   $this->email = $array["email"];
-  //   $this->password = $array["password"];
-  // }
+  public $relations = [
+    "has many" => [["table" => "articles", "key" => "user_id"]],
+    "has one" => [],
+    "many to many" => []
+  ];
 
-}
-
-class ArticleModel extends Entity
-{
   
 }
