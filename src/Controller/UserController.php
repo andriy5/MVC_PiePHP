@@ -61,5 +61,6 @@ class UserController extends Controller
   {
     $user = new UserModel(["id" => 1]);
     var_dump($user);
+    var_dump($user->articles);
   }
 }

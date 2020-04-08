@@ -2,18 +2,28 @@
 
 class Entity 
 {  
-  public function __construct($params =null) {
+  public function __construct($params=null, $condition=null) {
+
+    // Check si "id" daans $params, si oui return un array avec toutes les infos de cette id
     if (array_key_exists("id", $params)) {
       $table = get_class($this);
       $table = str_replace("Model", "s", $table);
       $table = strtolower($table);
       echo '✔ Key id exists on $params' . PHP_EOL;
-      $params = ORM::read($table, $params["id"]);
+      if ($condition == null){
+        $params = ORM::read($table, $params["id"]);
+      }
+      else {
+        $params = ORM::read($table, $params["id"], $condition);
+
+      }
       // var_dump($params);
     } else {
       echo '✖ Key id doesn\'t exists on $params' . PHP_EOL;
     }
 
+
+    // Cree les attributs si $params a bien recup un tableau precedement
     if ($params != false) {
       foreach ($params as $key => $value) {
         $this->$key = $value;
@@ -22,25 +32,25 @@ class Entity
 
 
     // Relation entres les modeles
-    $relations = $this->relations;
-    // var_dump($relations);
-    
-    foreach ($relations["has many"] as $hasmany_arrays) {
-      foreach ($hasmany_arrays as $fkey => $fvalue){
-        if ($fkey == "table") {
-          $value = $fvalue;
-        } 
-        elseif ($fkey == "key") {
-          $column = $fvalue;
+    if ($this->relations != null) {
+      $relations = $this->relations;    
+      foreach ($relations["has many"] as $hasmany_arrays) {
+        foreach ($hasmany_arrays as $fkey => $fvalue){
+          if ($fkey == "table") {
+            $value = $fvalue;
+          } 
+          elseif ($fkey == "key") {
+            $column = $fvalue;
+          }
         }
+        // $this->$value = ORM::read($value, $this->id, $column);
+        $model = ucfirst($value);
+        $model = substr($model, 0, -1);
+        $model .= "Model";
+        // echo '$value = ' . $value . PHP_EOL;
+        // echo '$model = ' . $model . PHP_EOL;
+        $this->$value = new $model(["id" => $this->id], $column);
       }
-      // $this->$value = ORM::read($value, $this->id, $column);
-      $model = ucfirst($value);
-      $model = substr($model, 0, -1);
-      $model .= "Model";
-      echo '$value = ' . $value . PHP_EOL;
-      echo '$model = ' . $model . PHP_EOL;
-      $this->$value = new $model();
     }
     
   }

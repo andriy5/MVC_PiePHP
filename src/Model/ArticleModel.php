@@ -7,6 +7,7 @@ class ArticleModel extends Entity
   //   "has one" => [],
   //   "many to many" => []
   // ];
+  public $relations = null;
 
   
 }

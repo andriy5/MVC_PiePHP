@@ -64,8 +64,14 @@ Class ORM
     $q = $sth->prepare("SELECT * FROM $table where $search = ?");
     $q->execute($array);
 
-    $results = $q->fetch(PDO::FETCH_ASSOC);
-    return $results;
+    if ($search == "id") {
+      $results = $q->fetch(PDO::FETCH_ASSOC);
+      return $results;
+    }
+    else {
+      $results = $q->fetchAll(PDO::FETCH_ASSOC);
+      return $results;
+    }
   }
   
   public static function update ($table, $id, $fields) {
