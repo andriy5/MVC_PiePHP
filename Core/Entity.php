@@ -2,7 +2,7 @@
 
 class Entity 
 {  
-  public function __construct($params=null, $condition=null) {
+  public function __construct($params=null, $condition=null, $position=null) {
 
     // Check si "id" daans $params, si oui return un array avec toutes les infos de cette id
     if (array_key_exists("id", $params)) {
@@ -14,8 +14,7 @@ class Entity
         $params = ORM::read($table, $params["id"]);
       }
       else {
-        $params = ORM::read($table, $params["id"], $condition);
-
+        $params = ORM::read($table, $params["id"], $condition, $position);
       }
       // var_dump($params);
     } else {
@@ -29,12 +28,16 @@ class Entity
         $this->$key = $value;
       }
     }
-
+    // echo "condition: $condition" . PHP_EOL;
 
     // Relation entres les modeles
     if ($this->relations != null) {
-      $relations = $this->relations;    
+      $relations = $this->relations;
+      $count = count(ORM::read($table, $params["id"], "id", "all"));
+      echo "📌 count = $count" . PHP_EOL;
+      $i=0;
       foreach ($relations["has many"] as $hasmany_arrays) {
+        // var_dump($hasmany_arrays);
         foreach ($hasmany_arrays as $fkey => $fvalue){
           if ($fkey == "table") {
             $value = $fvalue;
@@ -43,14 +46,16 @@ class Entity
             $column = $fvalue;
           }
         }
-        // $this->$value = ORM::read($value, $this->id, $column);
-        $model = ucfirst($value);
-        $model = substr($model, 0, -1);
-        $model .= "Model";
-        // echo '$value = ' . $value . PHP_EOL;
-        // echo '$model = ' . $model . PHP_EOL;
-        $this->$value = new $model(["id" => $this->id], $column);
       }
+      $model = ucfirst($value);
+      $model = substr($model, 0, -1);
+      $model .= "Model";
+      echo '$value = ' . $value . PHP_EOL;
+      echo '$model = ' . $model . PHP_EOL;
+      echo '$i = ' . $i . PHP_EOL; 
+      echo '$column = ' . $column . PHP_EOL;  
+      $this->$value[$i] = new $model(["id" => $this->id], $column, $i);
+      $i++;
     }
     
   }

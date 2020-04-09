@@ -52,7 +52,7 @@ class UserController extends Controller
     $user = new UserModel($params);
     if (!$user->id) {
       $user->save();
-      self::$_render = "Votre compte a ete cree. 👏" . PHP_EOL ;
+      self::$_render = "Votre compte a ete cree. 👏" . PHP_EOL;
     }
     echo self::$_render;
   }
@@ -60,7 +60,7 @@ class UserController extends Controller
   public function detailsAction ()
   {
     $user = new UserModel(["id" => 1]);
-    var_dump($user);
-    var_dump($user->articles);
+    // var_dump($user);
+    // var_dump($user->articles[1]->titre);
   }
 }
