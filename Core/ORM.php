@@ -56,7 +56,8 @@ Class ORM
   }
 
   public static function read ($table, $id =null, $search ="id", $position =null) {
-    // Retourne un tab. assoc. de l ' enregistrement
+    // Retourne un tab. assoc. de l' enregistrement
+    echo "🚨🚨 Lancement ORM::Read($table - $id - $search - $position)". PHP_EOL;
     $db = new Database();
     $sth = $db->connect();
     $array = [$id];
@@ -72,7 +73,7 @@ Class ORM
     }
     elseif ($position == "all") {
       $results = $q->fetchAll(PDO::FETCH_ASSOC);
-      echo "results for all:";
+      echo "⭐ results for all:";
       var_dump($results);
       return $results;
     }

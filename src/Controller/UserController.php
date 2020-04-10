@@ -60,7 +60,8 @@ class UserController extends Controller
   public function detailsAction ()
   {
     $user = new UserModel(["id" => 1]);
-    // var_dump($user);
-    // var_dump($user->articles[1]->titre);
+    echo PHP_EOL.PHP_EOL;
+    var_dump($user);
+    var_dump($user->articles[0]->content);
   }
 }

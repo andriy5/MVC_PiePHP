@@ -28,17 +28,15 @@ class Entity
         $this->$key = $value;
       }
     }
-    // echo "condition: $condition" . PHP_EOL;
+    echo "condition: $condition" . PHP_EOL;
 
     // Relation entres les modeles
-    if ($this->relations != null) {
+    if ($this->relations) {
       $relations = $this->relations;
-      $count = count(ORM::read($table, $params["id"], "id", "all"));
-      echo "📌 count = $count" . PHP_EOL;
-      $i=0;
+      // var_dump($relations["has many"]);
       foreach ($relations["has many"] as $hasmany_arrays) {
-        // var_dump($hasmany_arrays);
         foreach ($hasmany_arrays as $fkey => $fvalue){
+          // 
           if ($fkey == "table") {
             $value = $fvalue;
           } 
@@ -46,18 +44,22 @@ class Entity
             $column = $fvalue;
           }
         }
+        $count = count(ORM::read($value, $params["id"], $column, "all"));
+        echo "📌 count = $count" .PHP_EOL;
+        for ($i=0; $i < $count; $i++) { 
+          echo PHP_EOL . "---- FIN du construct ----".PHP_EOL.PHP_EOL.PHP_EOL;
+          $model = ucfirst($value);
+          $model = substr($model, 0, -1);
+          $model .= "Model";
+          $this->$value[$i] = new $model(["id" => $this->id], $column, $i);
+        }
       }
-      $model = ucfirst($value);
-      $model = substr($model, 0, -1);
-      $model .= "Model";
+    }
       echo '$value = ' . $value . PHP_EOL;
       echo '$model = ' . $model . PHP_EOL;
       echo '$i = ' . $i . PHP_EOL; 
       echo '$column = ' . $column . PHP_EOL;  
-      $this->$value[$i] = new $model(["id" => $this->id], $column, $i);
-      $i++;
-    }
-    
+        
   }
   
   public function save() {
