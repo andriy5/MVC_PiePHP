@@ -57,7 +57,7 @@ Class ORM
 
   public static function read ($table, $id =null, $search ="id", $position =null) {
     // Retourne un tab. assoc. de l' enregistrement
-    echo "🚨🚨 Lancement ORM::Read($table - $id - $search - $position)". PHP_EOL;
+    // echo "🚨🚨 Lancement ORM::Read($table - $id - $search - $position)". PHP_EOL;
     $db = new Database();
     $sth = $db->connect();
     $array = [$id];
@@ -67,20 +67,20 @@ Class ORM
 
     if ($position == null) {
       $results = $q->fetch(PDO::FETCH_ASSOC);
-      echo "⭐ results if:";
-      var_dump($results);
+      // echo "⭐ results if:";
+      // var_dump($results);
       return $results;
     }
     elseif ($position == "all") {
       $results = $q->fetchAll(PDO::FETCH_ASSOC);
-      echo "⭐ results for all:";
-      var_dump($results);
+      // echo "⭐ results for all:";
+      // var_dump($results);
       return $results;
     }
     else {
       $results = $q->fetchAll(PDO::FETCH_ASSOC);
-      echo "⭐ results else:";
-      var_dump($results);
+      // echo "⭐ results else:";
+      // var_dump($results);
       return $results[$position];
     }
   }

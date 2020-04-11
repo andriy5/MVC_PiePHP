@@ -7,6 +7,6 @@ class CommentModel extends Entity
   //   "has one" => [],
   //   "many to many" => []
   // ];
-
+  public $relations = null;
   
 }

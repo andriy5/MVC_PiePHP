@@ -3,7 +3,7 @@
 class Entity 
 {  
   public function __construct($params=null, $condition=null, $position=null) {
-
+    echo "🚨🚨 Lancement Construct". PHP_EOL;
     // Check si "id" daans $params, si oui return un array avec toutes les infos de cette id
     if (array_key_exists("id", $params)) {
       $table = get_class($this);
@@ -20,7 +20,7 @@ class Entity
     } else {
       echo '✖ Key id doesn\'t exists on $params' . PHP_EOL;
     }
-
+    echo "🛎 $table".PHP_EOL;
 
     // Cree les attributs si $params a bien recup un tableau precedement
     if ($params != false) {
@@ -28,37 +28,47 @@ class Entity
         $this->$key = $value;
       }
     }
-    echo "condition: $condition" . PHP_EOL;
+    // echo "condition: $condition" . PHP_EOL;
 
     // Relation entres les modeles
     if ($this->relations) {
       $relations = $this->relations;
-      // var_dump($relations["has many"]);
+      echo "relation:";
+      var_dump($relations["has many"]);
+
       foreach ($relations["has many"] as $hasmany_arrays) {
-        foreach ($hasmany_arrays as $fkey => $fvalue){
-          // 
-          if ($fkey == "table") {
-            $value = $fvalue;
-          } 
-          elseif ($fkey == "key") {
-            $column = $fvalue;
-          }
-        }
+        // echo "  foreach\n";
+        // var_dump($hasmany_arrays);
+
+        // Definis mes var. values + column
+        $value = $hasmany_arrays["table"];
+        $column = $hasmany_arrays['key'];
+
+        // Donne la var count (pour ensuite creer chaque model)
+        $result = ORM::read($value, $params["id"], $column, "all");
+        echo "⭐ result:";
+        var_dump($result);
         $count = count(ORM::read($value, $params["id"], $column, "all"));
         echo "📌 count = $count" .PHP_EOL;
-        for ($i=0; $i < $count; $i++) { 
-          echo PHP_EOL . "---- FIN du construct ----".PHP_EOL.PHP_EOL.PHP_EOL;
-          $model = ucfirst($value);
-          $model = substr($model, 0, -1);
-          $model .= "Model";
-          $this->$value[$i] = new $model(["id" => $this->id], $column, $i);
+
+        // Definis $model
+        $model = ucfirst($value);
+        $model = substr($model, 0, -1);
+        $model .= "Model";
+        echo '$model = ' . $model . PHP_EOL;
+        echo '$column = ' . $column . PHP_EOL . "--".PHP_EOL;  
+
+        // Creer chaque model
+        if ($count > 0) {
+          for ($i=0; $i < $count; $i++) { 
+            echo PHP_EOL . "---- FIN du construct ----".PHP_EOL.PHP_EOL.PHP_EOL;
+            $this->$value[$i] = new $model(["id" => $this->id], $column, $i);
+          }
         }
       }
     }
-      echo '$value = ' . $value . PHP_EOL;
-      echo '$model = ' . $model . PHP_EOL;
-      echo '$i = ' . $i . PHP_EOL; 
-      echo '$column = ' . $column . PHP_EOL;  
+      // echo '$value = ' . $value . PHP_EOL;
+      // echo '$i = ' . $i . PHP_EOL; 
         
   }
   
