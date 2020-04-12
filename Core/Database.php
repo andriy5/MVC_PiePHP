@@ -12,7 +12,7 @@ class Database
     try {
       $db = new PDO($this->dsn, $this->username);
       $db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-      print_r("✔ Connection PDO established: You're good man !\n");
+      // print_r("✔ Connection PDO established: You're good man !\n");
       return $db;
     } catch (PDOException $e) {
       die( 'Query failed: ' . $e->getMessage() );

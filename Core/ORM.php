@@ -55,7 +55,7 @@ Class ORM
     return $results["result"];
   }
 
-  public static function read ($table, $id =null, $search ="id", $position =null) {
+  public static function read ($table, $id=null, $search="id", $position=null) {
     // Retourne un tab. assoc. de l' enregistrement
     // echo "🚨🚨 Lancement ORM::Read($table - $id - $search - $position)". PHP_EOL;
     $db = new Database();
