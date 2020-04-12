@@ -42,7 +42,7 @@ class Core
       $check = Router::check($path);
       // var_dump($check);
 
-      if ($check["check"] == true) {
+      if ($check["check"] == true && is_numeric($check["value_from"])) {
         $path = str_replace($check["value_from"], $check["value_to"], $path);
         // echo $path. PHP_EOL;
         $get = Router::getRoute($path);

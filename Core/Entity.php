@@ -106,9 +106,14 @@ class Entity
 
 
         elseif ($rkey == "many to many") {
-          echo "many to many\n";
-          // foreach ($relations["many to many"] as $hasone_arrays) {
-          // }
+          // echo "many to many\n";
+          foreach ($relations["many to many"] as $hasmany_arrays) {
+            // echo "  foreach\n";
+            var_dump($hasmany_arrays);
+    
+            // $this->$name = new $model(["id" => $this->id]);
+            
+          }
         }
 
       }
